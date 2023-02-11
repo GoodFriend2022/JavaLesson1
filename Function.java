@@ -72,7 +72,7 @@ public class Function {
 
     static String userExp() {
         Scanner iScanner = new Scanner(System.in);
-        System.out.printf("Введите выражение для подсчета >> ");
+        System.out.printf("Введите простое выражение для подсчета >> ");
         String exp = iScanner.nextLine();
         iScanner.close();
         return exp;
@@ -81,28 +81,23 @@ public class Function {
     static double Calc(){
         String expUser = userExp();
         double res = 0;
-        expUser = expUser.replace("+", " + ");
-        expUser = expUser.replace("-", " - ");
-        expUser = expUser.replace("*", " * ");
-        expUser = expUser.replace("/", " / ");
-        String[] expString = expUser.split(" ");
-        for (int i = 0; i < expString.length; i++) {
-            if (expString[i].compareTo("*") == 0) {
-                double x = Double.parseDouble(expString[i - 1]);
-                double y = Double.parseDouble(expString[i + 1]);
-                res = mult(x, y);
-            } else if (expString[i].compareTo("/") == 0) {
-                double x = Double.parseDouble(expString[i - 1]);
-                double y = Double.parseDouble(expString[i + 1]);
-                res = div(x, y);
-            } else if (expString[i].compareTo("+") == 0) {
-                double x = Double.parseDouble(expString[i - 1]);
-                double y = Double.parseDouble(expString[i + 1]);
-                res = sum(x, y);
-            } else if (expString[i].compareTo("-") == 0) {
-                double x = Double.parseDouble(expString[i - 1]);
-                double y = Double.parseDouble(expString[i + 1]);
-                res = diff(x, y);
+        for (int i = 0; i < expUser.length(); i++) {
+            if (expUser.charAt(i) == '+') {
+                String expString = expUser.replace("+", " ");
+                String[] exp = expString.split(" ");
+                res = sum(Double.parseDouble(exp[0]), Double.parseDouble(exp[1]));
+            } else if (expUser.charAt(i) == '-') {
+                String[] exp = expUser.split("-");
+                res = diff(Double.parseDouble(exp[0]), Double.parseDouble(exp[1]));
+            } else if (expUser.charAt(i) == '*') {
+                String expString = expUser.replace("*", " ");
+                String[] exp = expString.split(" ");
+                res = mult(Double.parseDouble(exp[0]), Double.parseDouble(exp[1]));
+            } else if (expUser.charAt(i) == '/') {
+                String[] exp = expUser.split("/");
+                if (Double.parseDouble(exp[1]) != 0) {
+                    res = div(Double.parseDouble(exp[0]), Double.parseDouble(exp[1]));
+                } else System.out.println("Деление на ноль!!!");
             }
         }
         return res;
