@@ -102,4 +102,26 @@ public class Function {
         }
         return res;
     }
+
+    static void EquationSum(String eqUser){
+        String eqString = eqUser.replace(" ", "");
+        eqString = eqString.replace("+", " ");
+        eqString = eqString.replace("=", " ");
+        String[] equation = eqString.split(" ");
+        int result = Integer.parseInt(equation[2]);
+        for (int i = 0; i < 10; i++) {
+            String firstNumberStr = equation[0].replace("?", "" + i);
+            int firstNumber = Integer.parseInt(firstNumberStr);
+            for (int j = 0; j < 10; j++) {
+                String secondNumberStr = equation[1].replace("?", "" + j);
+                int secondNumber = Integer.parseInt(secondNumberStr);
+                if (firstNumber + secondNumber == result){
+                    System.out.printf("Вариант решения Вашего уравнения: %d + %d = %d", 
+                    firstNumber, secondNumber, result);
+                    return;
+                }
+            }
+        }
+        System.out.println("Мы перебрали все значения, но решения не нашли");
+    }
 }
